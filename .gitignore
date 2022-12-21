@@ -157,6 +157,11 @@ fabric.properties
 # Ignore everything but code style settings and run configurations
 # that are supposed to be shared within teams.
 
+/linux
+/macos
+/web
+/windows
+
 .idea/*
 
 !.idea/codeStyles
@@ -164,8 +169,3 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,intellij+all,firebase
 
-
-linux/
-macos/
-web/
-windows/
