@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_project/screens/guest/auth.dart';
-// import 'package:login_project/home.dart';
+import 'package:login_project/screens/guest.dart';
 
 void main() {
   runApp(const App());
@@ -15,7 +14,9 @@ class App extends StatelessWidget {
       title: 'App Flutter',
       debugShowCheckedModeBanner: false,
       // theme: ThemeData(primarySwatch: Colors.blue),
-      home: AuthScreen(),
+      // home: AuthScreen(),
+      // home: Therm(),
+      home: GuestScreen(),
     );
   }
 }

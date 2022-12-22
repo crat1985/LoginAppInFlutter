@@ -1,61 +1,41 @@
 import 'package:flutter/material.dart';
 
-class AuthScreen extends StatefulWidget {
+class PasswordScreen extends StatefulWidget {
   final Function(int) onChangedStep;
 
-  const AuthScreen({super.key, required this.onChangedStep});
+  const PasswordScreen({super.key, required this.onChangedStep});
 
   @override
-  State<AuthScreen> createState() => _AuthScreenState();
+  State<StatefulWidget> createState() => PasswordScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class PasswordScreenState extends State<PasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final RegExp emailRegex = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
-
-  String _email = "";
+  bool _isSecret = true;
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => widget.onChangedStep(0),
+          ),
+        ),
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // const SizedBox(
-                //   height: 200,
-                // ),
-                RichText(
-                  // textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: "Un  lieu pour\n".toUpperCase(),
-                      style: const TextStyle(color: Colors.white, fontSize: 30),
-                      children: [
-                        TextSpan(
-                          text: "communiquer\n".toUpperCase(),
-                          // style: const TextStyle(color: Colors.blue),
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(
-                          text: "et partager".toUpperCase(),
-                        ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "Tout commence ici",
-                  style: TextStyle(
+                Text(
+                  "mot de passe".toUpperCase(),
+                  style: const TextStyle(
                     color: Colors.white,
-                    fontStyle: FontStyle.italic,
+                    fontSize: 30,
                   ),
                 ),
                 const SizedBox(
@@ -67,28 +47,34 @@ class _AuthScreenState extends State<AuthScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       const Text(
-                        "Entrez votre email",
+                        "Entrez un mot de passe",
                         style: TextStyle(color: Colors.white),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       TextFormField(
-                        onChanged: (value) => setState(() => _email = value),
-                        validator: (value) =>
-                            value!.isEmpty || !emailRegex.hasMatch(value)
-                                ? "Email invalide"
-                                : null,
+                        onChanged: (value) => setState(() => _password = value),
+                        validator: (value) => value!.length < 6
+                            ? "Mot de passe trop court : 6 caractères minimum."
+                            : null,
+                        obscureText: _isSecret,
                         style: const TextStyle(
                           color: Colors.white,
                         ),
-                        decoration: const InputDecoration(
-                          hintText: "exemple@gmail.com",
-                          hintStyle: TextStyle(color: Colors.grey),
-                          enabledBorder: OutlineInputBorder(
+                        decoration: InputDecoration(
+                          suffixIcon: InkWell(
+                            onTap: () => setState(() => _isSecret = !_isSecret),
+                            child: Icon(_isSecret
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                          ),
+                          hintText: "Ex : apfnbepor!:ekfez",
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue),
                           ),
                         ),
@@ -97,12 +83,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         height: 10,
                       ),
                       ElevatedButton(
-                        onPressed: !emailRegex.hasMatch(_email)
+                        onPressed: _password.length < 6
                             ? null
                             : () {
                                 if (_formKey.currentState!.validate()) {
-                                  // print(_email);
-                                  widget.onChangedStep(1);
+                                  widget.onChangedStep(3);
                                 }
                               },
                         style: ElevatedButton.styleFrom(
