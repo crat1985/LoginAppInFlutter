@@ -161,6 +161,8 @@ fabric.properties
 /macos
 /web
 /windows
+/firebase
+/test
 
 .idea/*
 

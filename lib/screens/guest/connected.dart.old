@@ -29,7 +29,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ),
           body: Column(
             children: const [
-              Text("Hello World"),
+              Text("Bienvenue"),
             ],
           ),
         ),

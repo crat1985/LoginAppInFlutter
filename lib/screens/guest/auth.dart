@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
-  final Function(int) onChangedStep;
+  final Function(int, String) onChangedStep;
 
   const AuthScreen({super.key, required this.onChangedStep});
 
@@ -102,7 +102,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             : () {
                                 if (_formKey.currentState!.validate()) {
                                   // print(_email);
-                                  widget.onChangedStep(1);
+                                  widget.onChangedStep(1, _email);
                                 }
                               },
                         style: ElevatedButton.styleFrom(
